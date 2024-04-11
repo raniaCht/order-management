@@ -1,2 +1,2 @@
-./backend/db.sqlite3
-./backend/__pycache__/
+*.sqlite3
+__pycache__/
