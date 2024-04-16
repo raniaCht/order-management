@@ -6,7 +6,7 @@ type props = {
   placeholder: string;
 };
 
-function FormControl({ label, name, placeholder }: props) {
+export function FormControl({ label, name, placeholder }: props) {
   return (
     <div className="flex flex-col justify-start gap-2 w-full">
       <label className="text-primary" htmlFor={name}>
@@ -21,5 +21,3 @@ function FormControl({ label, name, placeholder }: props) {
     </div>
   );
 }
-
-export default FormControl;

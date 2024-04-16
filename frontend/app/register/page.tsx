@@ -1,8 +1,9 @@
 import Link from "next/link";
 import React from "react";
-import FormControl from "../components/FormControl";
+import { FormControl } from "../components/FormControl";
+import { registerUser } from "@/lib/actions/auth";
 
-function RegisterPage() {
+async function RegisterPage() {
   return (
     <div className="bg-secondary flex justify-center items-center px-3 md:px-40 lg:px-4 xl:px-32 2xl:px-60 py-4 rounded-lg text-black min-h-screen">
       <div className="w-full flex justify-between gap-2 bg-white p-1 lg:p-3">
@@ -23,7 +24,14 @@ function RegisterPage() {
               </p>
             </div>
           </div>
-          <form className="flex flex-col justify-start p-3 gap-7">
+          <form
+            action={async (formData) => {
+              "use server";
+              const data = Object.fromEntries(formData);
+              await registerUser(data);
+            }}
+            className="flex flex-col justify-start p-3 gap-7"
+          >
             <div className="flex justify-between flex-col lg:flex-row gap-5">
               <FormControl
                 label="First name"
@@ -59,7 +67,10 @@ function RegisterPage() {
                 I agree to all terms, privacy policies, and fees
               </label>
             </div>
-            <button className="cursor-pointer p-3 bg-primary text-white rounded-md w-60">
+            <button
+              type="submit"
+              className="cursor-pointer p-3 bg-primary text-white rounded-md w-60"
+            >
               Sign up
             </button>
             <p className="font-medium">

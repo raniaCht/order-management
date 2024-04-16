@@ -43,7 +43,12 @@ INSTALLED_APPS = [
     "django_filters",
     "order",
     "account",
+    "corsheaders",
     "rest_framework_simplejwt.token_blacklist"
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
 ]
 
 AUTH_USER_MODEL = 'account.User'
@@ -51,6 +56,7 @@ AUTH_USER_MODEL = 'account.User'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
