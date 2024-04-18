@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { FormControl } from "../components/FormControl";
+import { login } from "@/lib/actions/auth";
 
 function LoginPage() {
   return (
@@ -15,7 +16,14 @@ function LoginPage() {
               See your growth and get support!
             </p>
           </div>
-          <form className="flex flex-col justify-start p-3 gap-7">
+          <form
+            action={async (formData: any) => {
+              "use server";
+              const data = Object.fromEntries(formData);
+              await login(data);
+            }}
+            className="flex flex-col justify-start p-3 gap-7"
+          >
             <button className="flex justify-center items-center gap-2 w-full cursor-pointer border border-black rounded-full p-3">
               <span className="text-xs font-normal">Sign in with google</span>
               <Image src={"/google.svg"} alt="google" width={32} height={32} />
@@ -39,7 +47,10 @@ function LoginPage() {
               </div>
               <Link href={""}>Forgot password?</Link>
             </div>
-            <button className="cursor-pointer p-3 bg-primary text-white rounded-md">
+            <button
+              type="submit"
+              className="cursor-pointer p-3 bg-primary text-white rounded-md"
+            >
               Login
             </button>
             <p className="font-medium">
