@@ -15,10 +15,10 @@ class UserRegistrationView(APIView):
     def post(self, request, format=None):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
+        print(serializer.errors)
         user = serializer.save()
-
+        
         refresh = RefreshToken.for_user(user) 
-
         response_data = {
             'refresh': str(refresh),
             'access': str(refresh.access_token), 

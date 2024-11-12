@@ -3,6 +3,7 @@ import Link from "next/link";
 import React from "react";
 import { FormControl } from "../components/FormControl";
 import { login } from "@/lib/actions/auth";
+import { redirect } from "next/navigation";
 
 function LoginPage() {
   return (
@@ -21,6 +22,7 @@ function LoginPage() {
               "use server";
               const data = Object.fromEntries(formData);
               await login(data);
+              redirect("/");
             }}
             className="flex flex-col justify-start p-3 gap-7"
           >

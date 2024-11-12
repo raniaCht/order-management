@@ -1,9 +1,18 @@
 import Link from "next/link";
-import React from "react";
+import React, { useEffect } from "react";
 import { FormControl } from "../components/FormControl";
 import { registerUser } from "@/lib/actions/auth";
+import { redirect } from "next/navigation";
+import { cookies } from "next/headers";
 
 async function RegisterPage() {
+  const accessToken = (await cookies()).get("access")?.value;
+  const refreshToken = (await cookies()).get("refresh")?.value;
+
+  if (accessToken || refreshToken) {
+    redirect("/");
+  }
+
   return (
     <div className="bg-secondary flex justify-center items-center px-3 md:px-40 lg:px-4 xl:px-32 2xl:px-60 py-4 rounded-lg text-black min-h-screen">
       <div className="w-full flex justify-between gap-2 bg-white p-1 lg:p-3">
@@ -29,6 +38,7 @@ async function RegisterPage() {
               "use server";
               const data = Object.fromEntries(formData);
               await registerUser(data);
+              redirect("/");
             }}
             className="flex flex-col justify-start p-3 gap-7"
           >
